@@ -36,13 +36,11 @@ async def handle_request(request):
                 model("gpt-4"),
             ]
         }
-        # print(data)
         return web.json_response(data)
     else:
-        # Handle POST requests here
         data = await request.json()
         preprompt = [
-            "[Use proper language regarding on a context.]"
+            "[Use proper language regarding on a context.]" # No use for forcing a specific language now.
         ]
         system = {
             "role":"system",
@@ -51,7 +49,6 @@ async def handle_request(request):
         system['content'] += ' '.join(preprompt)
         oldmsg = [system] + data['messages'][:-1]
         msg = data['messages'][-1]['content']
-        print(oldmsg)
         response = web.StreamResponse()
         response.headers['Content-Type'] = 'application/json'
         await response.prepare(request)
@@ -65,7 +62,6 @@ async def handle_request(request):
                         "choices": [{ "delta": {"role": "assistant"}, "finish_reason": None, "index": 0 }]
                     }
             await response.write(f"data: {json.dumps(chunk)}\n\n".encode())
-            print(chunk)
             async for res_text in Wrtn.chat_by_json(await Wrtn.make_chatbot(),
                 msg=msg,
                 oldmsg=oldmsg,
@@ -80,7 +76,6 @@ async def handle_request(request):
                         "choices": [{ "delta": {"content": res_text}, "finish_reason": None, "index": 0 }]
                     }
                 await response.write(f"data: {json.dumps(chunk)}\n\n".encode())
-                # print(chunk)
         except Exception as ex:
             print(f"Error: {str(ex)}\n Chunk: {temp_res_text}")
         finally:
