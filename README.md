@@ -9,6 +9,11 @@ Also works well with Sillytavern.
 [fake_useragent](https://pypi.org/project/fake-useragent/)
 
 # Usage
+Common
+
+1. Make a file named wrtn.json in the same directory
+2. Read 'You need a file named 'wrtn.json' contains' below and follow the instruction.
+
 Sillytavern
 1. Use localhost:41323 for alternative server URL
 2. Turn the streaming mode on
@@ -43,5 +48,10 @@ Adjust context sizes and max response length fit with 8k tokens.
     ...
 ]
 ```
+If you want to use multiple accounts, enter them in the same format as above(though there's not much reason to). 
+If you received a 500 error, it is highly unlikely that wrtn.ai's servers are down, and very likely that your response was censored. Use a safer sentence.
 If you don't know how to get the refresh_key, don't worry, as long as you input the id and pw correctly, it will automatically update the refresh_key.
+
+After playing around with wrtn.ai's API for a while, I noticed that the developers of wrtn.ai sometimes modify the prompt to prevent abuse by unwanted guests, such as users of this reverse proxy. So if it's malfunctioning then the API has been updated, so either fix the source code, or ask me to fix it(won't be a quick fix though). 
+ 
 
