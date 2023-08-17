@@ -14,6 +14,7 @@ Sillytavern
 2. Turn the streaming mode on
 
 Other
+
 post localhost:41323 with payload format:
 ```
 {
